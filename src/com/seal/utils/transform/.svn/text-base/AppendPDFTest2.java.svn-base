@@ -1,0 +1,160 @@
+package com.shawgrp.cwp.test;
+
+//Java
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.PdfCopy;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
+
+/**
+ * This class demonstrates the conversion of an XML file to PDF using JAXP
+ * (XSLT) and FOP (XSL-FO).
+ */
+public class AppendPDFTest2
+{
+
+	/**
+	 * Main method.
+	 * 
+	 * @param args
+	 *            command-line arguments
+	 */
+	public static void main(String[] args)
+	{
+		try
+		{
+
+			System.out.println("Preparing...");
+
+			// Setup directories
+			File baseDir = new File("src");
+			File outDir = new File("out");
+			outDir.mkdirs();
+
+			// Setup input and output files
+			File pdffile1 = new File(baseDir, "test/pdf1.pdf");
+			File pdffile2 = new File(baseDir, "test/pdf2.pdf");
+			File pdffile3 = new File(outDir, "Appended.pdf");
+
+			System.out.println("Input PDF1: " + pdffile1);
+			System.out.println("Input PDF2: " + pdffile2);
+			System.out.println("Output: PDF (" + pdffile3 + ")");
+			System.out.println();
+			System.out.println("Appending PDFs...");
+
+			// Setup output
+			OutputStream out = new java.io.FileOutputStream(pdffile3);
+			out = new java.io.BufferedOutputStream(out);
+
+			appendPDFAttachments(pdffile1, pdffile3);
+
+			System.out.println("Success!");
+
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace(System.err);
+			System.exit(-1);
+		}
+	}
+
+	private static void appendPDFAttachments(File pdffile1, File outputFile)
+			throws Exception
+	{
+
+		com.itextpdf.text.Document masterDocument = null;
+		PdfCopy writer = null;
+
+		try
+		{
+			// First get the current content of the shaw package object.
+			PdfReader cwpDoc = new PdfReader(pdffile1.getAbsolutePath());
+			cwpDoc.consolidateNamedDestinations();
+
+			// we retrieve the total number of pages from this PDF
+			int n = cwpDoc.getNumberOfPages();
+			System.out.println("There are " + n + " pages in this document.");
+			// use same layout as form
+			masterDocument = new com.itextpdf.text.Document(cwpDoc
+					.getPageSizeWithRotation(1));
+			// Now write to the new PDF document
+
+			writer = new PdfCopy(masterDocument,
+					new FileOutputStream(outputFile.getAbsolutePath()));
+			// writer = PdfWriter.getInstance(masterDocument, outputStream);
+			// Open the new PDF document being created
+			masterDocument.open();
+
+			appendPDFDocument(cwpDoc, writer);
+
+			// close PDF document.
+			masterDocument.close();
+			writer.flush();
+			writer.close();
+
+			System.out.println("Resulting PDF document is "
+					+ writer.getPageSize() + " page(s).");
+
+		}
+		catch (IOException io)
+		{
+			String msg = "ERROR: Unable to get content from shaw package PDF object.";
+			System.out.println(msg + io.toString());
+			throw new Exception(msg, io);
+		}
+		catch (DocumentException de)
+		{
+			String msg = "ERROR: Unable to make a copy of the shaw package contents.";
+			System.out.println(msg + de.toString());
+			throw new Exception(msg, de);
+		}
+	}
+
+	private static void appendPDFDocument(PdfReader pdfDoc, PdfCopy writer) throws Exception
+	{
+
+		try
+		{
+			// we retrieve the total number of pages from this PDF
+			int n = pdfDoc.getNumberOfPages();
+			System.out.println("There are " + n
+					+ " pages in this project document.");
+
+			pdfDoc.consolidateNamedDestinations();
+
+			// Declare a page
+			PdfImportedPage page = null;
+
+			// Add the pages of the current project document PDF to the new PDF
+			// document being constructed.
+			for (int i = 0; i < n;)
+			{
+				++i;
+				// Get a page from the PDF attachment
+				System.out.println("Get page contents for page number:" + i);
+				page = writer.getImportedPage(pdfDoc, i);
+
+				writer.addPage(page);
+
+				System.out.println("Processed page " + i);
+			}
+		}
+		catch (Exception e)
+		{
+			String msg = "ERROR:  Unable to append attachment for PDF document.";
+			System.out.println(msg + e.toString());
+			throw new Exception(msg, e);
+		}
+		finally
+		{
+			pdfDoc.close();
+		}
+
+	}
+
+}

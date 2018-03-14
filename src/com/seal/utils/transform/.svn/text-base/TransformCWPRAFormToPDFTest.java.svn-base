@@ -1,0 +1,160 @@
+package com.shawgrp.cwp.test;
+
+//Java
+import java.io.File;
+import java.io.OutputStream;
+import java.util.StringTokenizer;
+import java.util.logging.Logger;
+
+import javax.xml.transform.Result;
+import javax.xml.transform.Source;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.stream.StreamSource;
+
+import org.apache.fop.apps.FOUserAgent;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.FopFactory;
+import org.apache.fop.apps.MimeConstants;
+
+/**
+ * This class demonstrates the conversion of an XML file to PDF using JAXP
+ * (XSLT) and FOP (XSL-FO).
+ */
+public class TransformCWPRAFormToPDFTest
+{
+
+	private static final Logger _LOG = Logger
+			.getLogger(TransformCWPRAFormToPDFTest.class.getName());
+
+	/**
+	 * Main method.
+	 * 
+	 * @param args
+	 *            command-line arguments
+	 */
+	public static void main(String[] args)
+	{
+		try
+		{
+			System.out.println("FOP ExampleXML2PDF\n");
+			System.out.println("Preparing...");
+
+			// Setup directories
+			File baseDir = new File("src");
+			File outDir = new File("out");
+			outDir.mkdirs();
+
+			// Setup input and output files
+			File xmlfile = new File(baseDir, "xslt/CWP-RA-FormExample.xml");
+			File xsltfile = new File(baseDir, "xslt/CWPReviewApprovalForm.xsl");
+			File pdffile = new File(outDir, "ResultXML2PDF.pdf");
+
+			String newname = formatUserName("dmadmin");
+			System.out.println("New name:" + newname);
+
+			//System.out.println("Input: XML (" + xmlfile + ")");
+			System.out.println("Stylesheet: " + xsltfile);
+			System.out.println("Output: PDF (" + pdffile + ")");
+			System.out.println();
+			System.out.println("Transforming...");
+
+			// configure fopFactory as desired
+			FopFactory fopFactory = FopFactory.newInstance();
+
+			// configure foUserAgent as desired
+			FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
+
+			// Setup output
+			OutputStream out = new java.io.FileOutputStream(pdffile);
+			out = new java.io.BufferedOutputStream(out);
+
+			try
+			{
+				// Construct fop with desired output format
+				Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF,
+						foUserAgent, out);
+
+				// Setup XSLT
+				TransformerFactory factory = TransformerFactory.newInstance();
+				Transformer transformer = factory
+						.newTransformer(new StreamSource(xsltfile));
+
+				// Set the value of a <param> in the stylesheet	
+				transformer.setParameter("SigPageFooter", "Shaw Nuclear Services, Inc. - Proprietary & Confidential");
+                transformer.setParameter("WorkPkgNbr", "");
+                transformer.setParameter("Revision", "");
+                transformer.setParameter("PreparerUserName", "");
+                transformer.setParameter("PreparerDate", "");
+                transformer.setParameter("PeerUserName", "");
+                transformer.setParameter("PeerDate", "");
+                transformer.setParameter("SupervisorUserName", "");
+                transformer.setParameter("SupervisorDate", "");
+                transformer.setParameter("DocControlUserName", "");
+                transformer.setParameter("DocControlDate", "");
+                transformer.setParameter("QAUserName", "");
+                transformer.setParameter("QADate", "");
+                transformer.setParameter("ANIUserName", "");
+                transformer.setParameter("ANIDate", "");
+                transformer.setParameter("LFEUserName", "");
+                transformer.setParameter("LFEDate", "");
+                transformer.setParameter("FEMUserName", "");
+                transformer.setParameter("FEMDate", "");
+                
+				// Setup input for XSLT transformation
+				Source src = new StreamSource(xmlfile);
+
+				// Resulting SAX events (the generated FO) must be piped through
+				// to FOP
+				Result res = new SAXResult(fop.getDefaultHandler());
+
+				// Start XSLT transformation and FOP processing
+				transformer.transform(src, res);
+			}
+			finally
+			{
+				out.close();
+			}
+
+			System.out.println("Success!");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace(System.err);
+			System.exit(-1);
+		}
+	}
+
+	
+	public static String formatUserName(String username)
+	{
+
+		StringTokenizer tokens = new StringTokenizer(username, ",");
+
+		int numTokens = tokens.countTokens();
+
+		// Case no comma was used just return what was there.
+		if (numTokens == 1)
+		{
+			return username;
+		}
+		// Reverse order of values to create username
+		// ie: last, middle, first
+		// becomes: first middle last
+		String newUserName = "";
+		while (tokens.hasMoreTokens())
+		{
+			// Case we are at first token
+			if (newUserName.equals(""))
+			{
+				newUserName = tokens.nextToken().trim();
+			}
+			// Subsequent tokens
+			newUserName = tokens.nextToken().trim() + " " + newUserName;
+		}
+		return newUserName;
+	}
+
+	
+}

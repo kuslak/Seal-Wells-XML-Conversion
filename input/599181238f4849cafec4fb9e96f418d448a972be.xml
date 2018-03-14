@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<documents>
+    <iSDACSADocModel>
+        <seal-id>599181238f4849cafec4fb9e96f418d448a972be</seal-id>
+        <sha1>599181238f4849cafec4fb9e96f418d448a972be</sha1>
+        <filename>Kingstown_973402_ISDAMasterAgreement-1992Multicurrency_3-28-2013_113310.pdf</filename>
+        <iSDACSATerms>
+            <Document_ID__c>113310</Document_ID__c>
+            <agreement_date ref='3.1'></agreement_date>
+            <WF_Trading_Entity_CIDLegal_ID__c ref='3.2'>KB1H1DSPRFMYMCUFXT09</WF_Trading_Entity_CIDLegal_ID__c>
+            <AgreementIdentifier ref='3.3'>113310</AgreementIdentifier>
+            <Underlying_QFC_Obligor_ID__c ref='3.6.1'></Underlying_QFC_Obligor_ID__c>
+            <Contact_Info_Phone_QFC_CPTY__c ref='3.15'></Contact_Info_Phone_QFC_CPTY__c>
+            <Contact_Info_Email_QFC_CPTY__c ref='3.16'></Contact_Info_Email_QFC_CPTY__c>
+            <WCIS_CPTY__c>234008063</WCIS_CPTY__c>
+            <WCIS_RE__c>231151478</WCIS_RE__c>
+            <Legal_Id_RE__c>10001</Legal_Id_RE__c>
+            <Legal_Id_CPTY__c>716059</Legal_Id_CPTY__c>
+            <LEI_CICI_RE__c>KB1H1DSPRFMYMCUFXT09</LEI_CICI_RE__c>
+            <LEI_CICI_CPTY__c>XXHTGYDBCEV8H3WQ4H67</LEI_CICI_CPTY__c>
+            <Agreement_Form__c>973402</Agreement_Form__c>
+            <Business_Account_ID__c>Kingstown</Business_Account_ID__c>
+            <Counterparty_Name__c>Main</Counterparty_Name__c>
+            <Contract_Class__c>Addendums</Contract_Class__c>
+            <Contract_Type__c>Schedule To The Master Agreement</Contract_Type__c>
+            <Record_Entity_Name__c></Record_Entity_Name__c>
+            <Agreement_CPTY_Name__c></Agreement_CPTY_Name__c>
+            <Filenet_ID__c></Filenet_ID__c>
+        </iSDACSATerms>
+    </iSDACSADocModel>
+</documents>

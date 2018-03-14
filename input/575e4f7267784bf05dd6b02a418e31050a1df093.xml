@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<documents>
+    <iSDACSADocModel>
+        <seal-id>575e4f7267784bf05dd6b02a418e31050a1df093</seal-id>
+        <sha1>575e4f7267784bf05dd6b02a418e31050a1df093</sha1>
+        <filename>GwinnettS_1285883_ISDAMasterAgreement-1992LocalCurrency_12-14-1998_564600.pdf</filename>
+        <iSDACSATerms>
+            <Document_ID__c>564600</Document_ID__c>
+            <agreement_date ref='3.1'></agreement_date>
+            <WF_Trading_Entity_CIDLegal_ID__c ref='3.2'>KB1H1DSPRFMYMCUFXT09</WF_Trading_Entity_CIDLegal_ID__c>
+            <AgreementIdentifier ref='3.3'>564600</AgreementIdentifier>
+            <Underlying_QFC_Obligor_ID__c ref='3.6.1'></Underlying_QFC_Obligor_ID__c>
+            <Contact_Info_Phone_QFC_CPTY__c ref='3.15'>Fax: (704) 383-9139 Phone: (704) 383-0590</Contact_Info_Phone_QFC_CPTY__c>
+            <Contact_Info_Email_QFC_CPTY__c ref='3.16'></Contact_Info_Email_QFC_CPTY__c>
+            <WCIS_CPTY__c>-23052245600</WCIS_CPTY__c>
+            <WCIS_RE__c>231151478</WCIS_RE__c>
+            <Legal_Id_RE__c>10001</Legal_Id_RE__c>
+            <Legal_Id_CPTY__c>791789</Legal_Id_CPTY__c>
+            <LEI_CICI_RE__c>KB1H1DSPRFMYMCUFXT09</LEI_CICI_RE__c>
+            <LEI_CICI_CPTY__c></LEI_CICI_CPTY__c>
+            <Agreement_Form__c>1285883</Agreement_Form__c>
+            <Business_Account_ID__c>GwinnettS</Business_Account_ID__c>
+            <Counterparty_Name__c>Main</Counterparty_Name__c>
+            <Contract_Class__c>MasterAgreement</Contract_Class__c>
+            <Contract_Type__c>Schedule To The Master Agreement</Contract_Type__c>
+            <Record_Entity_Name__c></Record_Entity_Name__c>
+            <Agreement_CPTY_Name__c></Agreement_CPTY_Name__c>
+            <Filenet_ID__c></Filenet_ID__c>
+        </iSDACSATerms>
+    </iSDACSADocModel>
+</documents>

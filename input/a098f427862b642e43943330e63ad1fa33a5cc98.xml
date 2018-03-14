@@ -1,0 +1,31 @@
+<?xml version='1.0'?>
+<documents>
+    <iSDACSADocModel>
+        <seal-id>a098f427862b642e43943330e63ad1fa33a5cc98</seal-id>
+        <sha1>a098f427862b642e43943330e63ad1fa33a5cc98</sha1>
+        <filename>RangeReso_623400_AmendedandRestatedISDAMasterAgreement-1992Multicurrency_9-14-2007_28925.pdf</filename>
+        <iSDACSATerms>
+            <Document_ID__c>28925</Document_ID__c>
+            <agreement_date ref='3.1'></agreement_date>
+            <WF_Trading_Entity_CIDLegal_ID__c ref='3.2'>KB1H1DSPRFMYMCUFXT09</WF_Trading_Entity_CIDLegal_ID__c>
+            <AgreementIdentifier ref='3.3'>28925</AgreementIdentifier>
+            <Underlying_QFC_Obligor_ID__c ref='3.6.1'></Underlying_QFC_Obligor_ID__c>
+            <Contact_Info_Phone_QFC_CPTY__c ref='3.15'>Wachovia Bank, National Association 301 South College Street, DC-8 Charlotte, NC 28202-0600 Attn Derivatives Documentation Group Fax No (704)383-0575 Telephone No (704)383-8778</Contact_Info_Phone_QFC_CPTY__c>
+            <Contact_Info_Email_QFC_CPTY__c ref='3.16'></Contact_Info_Email_QFC_CPTY__c>
+            <WCIS_CPTY__c>230979441</WCIS_CPTY__c>
+            <WCIS_RE__c>231151478</WCIS_RE__c>
+            <Legal_Id_RE__c>10001</Legal_Id_RE__c>
+            <Legal_Id_CPTY__c>383763</Legal_Id_CPTY__c>
+            <LEI_CICI_RE__c>KB1H1DSPRFMYMCUFXT09</LEI_CICI_RE__c>
+            <LEI_CICI_CPTY__c>H3Y3WLYCX0BTO1TRW162</LEI_CICI_CPTY__c>
+            <Agreement_Form__c>623400</Agreement_Form__c>
+            <Business_Account_ID__c>RangeReso</Business_Account_ID__c>
+            <Counterparty_Name__c>Main</Counterparty_Name__c>
+            <Contract_Class__c>MasterAgreement</Contract_Class__c>
+            <Contract_Type__c>Isda Master Agreement</Contract_Type__c>
+            <Record_Entity_Name__c></Record_Entity_Name__c>
+            <Agreement_CPTY_Name__c></Agreement_CPTY_Name__c>
+            <Filenet_ID__c></Filenet_ID__c>
+        </iSDACSATerms>
+    </iSDACSADocModel>
+</documents>
