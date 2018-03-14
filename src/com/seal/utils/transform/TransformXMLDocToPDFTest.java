@@ -2,6 +2,7 @@ package com.seal.utils.transform;
 
 //Java
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.Iterator;
@@ -19,6 +20,12 @@ import org.apache.fop.apps.FOUserAgent;
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * This class demonstrates the conversion of an XML file to PDF using JAXP
@@ -38,6 +45,10 @@ public class TransformXMLDocToPDFTest
 	 */
 	public static void main(String[] args) throws Exception
 	{
+		
+		Document document = null;
+        FileOutputStream outputStream = null;
+        
 		try
 		{
 			System.out.println("FOP ExampleXML2PDF\n");
@@ -50,12 +61,17 @@ public class TransformXMLDocToPDFTest
 
 			// Setup input and output files
 			File xsltfile = new File(baseDir, "../xslt/SealDocumentExport.xsl");
-
-			File inputDir = new File("input2");
-
+			File mergedPDF = new File(outDir, "MergedXMLOutput.pdf");
+			File inputDir = new File("input");
+			
+			// Initialize pdf output
+			document = new Document();
+	        outputStream = new FileOutputStream(mergedPDF);
+	        PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+	        document.open();
+	        PdfContentByte cb = writer.getDirectContent();
 
 			System.out.println("Stylesheet: " + xsltfile);
-
 
 			String[] extensions = new String[] { "xml" };
 			Collection<File> importDirFiles = FileUtils.listFiles(inputDir,
@@ -113,7 +129,7 @@ public class TransformXMLDocToPDFTest
 						// Start XSLT transformation and FOP processing
 						transformer.transform(src, res);
 						System.out.println("After transform");
-						fileCount++;
+						fileCount++;		
 					}
 					catch (Exception e)
 					{
@@ -125,9 +141,17 @@ public class TransformXMLDocToPDFTest
 					{
 						// Close the file we are done processing it.
 						out.close();
+						// Append this newly converted PDF 
+						PdfReader reader = new PdfReader(pdffile.getAbsolutePath());
+			            for (int n = 1; n <= reader.getNumberOfPages(); n++) {
+			                document.newPage();
+			                PdfImportedPage page = writer.getImportedPage(reader, n);
+			                cb.addTemplate(page, 0, 0);
+			            }
 					}
 				}
 			}
+			System.out.println("Writing out merged PDF file: " +mergedPDF.getCanonicalPath());
 		}
 		catch (Exception e)
 		{
@@ -135,5 +159,12 @@ public class TransformXMLDocToPDFTest
 			e.printStackTrace(System.err);
 			System.exit(-1);
 		}
+		finally
+		{
+			outputStream.flush();
+	        document.close();
+	        outputStream.close();
+		}
 	}
+	
 }
